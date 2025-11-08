@@ -8,29 +8,32 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import javax.sql.DataSource;
 
 @Configuration
-public class DBConecction {
+public class DBConnection {
 
     @Value("${db.host}")
     private String host;
+
     @Value("${db.port}")
     private String port;
+
     @Value("${db.name}")
     private String name;
-    @Value("${db.password}")
-    private String password;
+
     @Value("${db.user}")
     private String user;
 
+    @Value("${db.pass}")
+    private String pass;
+
     @Bean
     public DataSource getDBConnection() {
-
         DriverManagerDataSource source = new DriverManagerDataSource();
-        source.setDriverClassName("com.mysql.jdbc.Driver");
+        source.setDriverClassName("com.mysql.cj.jdbc.Driver");
+        // jdbc:mysql://localhost:3306/adj-demo
         source.setUrl("jdbc:mysql://" + host + ":" + port + "/" + name);
         source.setUsername(user);
-        source.setPassword(password);
+        source.setPassword(pass);
 
         return source;
     }
-
 }
